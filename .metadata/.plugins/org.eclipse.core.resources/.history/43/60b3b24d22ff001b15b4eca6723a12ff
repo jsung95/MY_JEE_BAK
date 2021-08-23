@@ -1,0 +1,15 @@
+package org.zerock.myapp.persistence;
+
+import java.util.Date;
+
+import org.zerock.myapp.domain.LoginDTO;
+import org.zerock.myapp.domain.UserVO;
+
+public interface UserDAO {
+	
+	public abstract UserVO selectUser(LoginDTO dto) throws Exception;
+	
+	public abstract int updateUserWithRememberMe(String userid, String rememberMe, Date rememberMeMaxAge) throws Exception;
+	
+	public abstract UserVO selectUserWithRememberMe(String rememberMe) throws Exception;
+}

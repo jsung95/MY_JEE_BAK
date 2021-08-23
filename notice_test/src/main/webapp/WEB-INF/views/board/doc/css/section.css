@@ -1,0 +1,158 @@
+        /* SECTION */
+        #section {
+            height: 1690px;
+            margin: 0 auto;
+        }
+
+            /* SLIDE */
+        #slide_view_area {
+            height: 490px;
+            /* background-color: rgb(255, 191, 191); */
+        }
+
+        #slider_area {
+            margin: 0 auto;
+            width: 1000px;
+            height: 490px;
+        }
+
+        #pager {
+            margin: 0 auto;
+            text-align: center;
+            /* width: 500px; */
+        }
+
+            /* QUICK */
+        #quick_menu_area {
+            height: 300px;
+            /* background-color: rgb(239, 255, 169); */
+        }
+
+        #quick_menu {
+            
+            width: 1000px;
+            height: 300px;
+            margin: 0 auto;
+
+            background: url(/doc/img/section/qucikmenu/quick_bg.png);
+            background-color: rgb(228, 228, 255);
+        }
+
+        #quick_menu_ul {
+            position: relative;
+            top: 60px;
+        }
+
+        .quick_items {
+            float: left;
+            
+            width: 180px;
+            height: 180px;
+
+            margin-left: 16.6px;
+        }
+
+
+
+            /* NOTICE */
+        #notice_area {
+            height: 400px;
+        }
+
+        #notice_board_menu {
+            width: 1000px;
+            height: 400px;
+            margin: 0 auto;
+
+
+        }
+
+        #notice_board_area {
+            width: 800px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+            top: 30px;
+        }
+
+        #notice_board_top {
+            position: relative;
+        } 
+        #notice_board_top h1 { /*공지사항*/
+            float: left;
+            font-size: 50px;
+        }
+        #notice_board_top div { /*more 버튼*/
+            float: right;
+            font-size: 20px;
+        }
+
+        #notice_board_content {
+            position: relative;
+            top: 30px;
+        }
+        #notice_board_content ul li {
+            font-size: 30px;
+            font-weight: lighter;
+        }
+
+            /* QUESTION */
+        #question_area {
+            height: 250px;
+            background-color: rgb(48, 48, 48);
+        }
+
+        #question_menu {
+            padding-top: 30px;
+            width: 1000px;
+            margin: 0 auto;
+
+        }
+
+        #question_ment {
+            padding-bottom: 20px;
+            font-size: 30px;
+            text-align: center;
+            color: white;
+            margin: 0 auto;
+        }
+
+        #question_signup {
+            
+            width: 200px;
+            height: 80px;
+            margin: 0 auto;
+
+            font-size: 30px;
+            text-align: center;
+            line-height: 80px;
+
+            border: 4px solid white;
+        }
+
+        #question_signup a {
+            display: block;
+            width: 200px;
+            height: 80px;
+
+            color: white;
+            /* background-color: white; */
+        }
+
+            /* EMPTY */
+        #empty_area {
+            height: 100px;
+        }
+
+            /* SUPPORT */
+        .support_area {
+            height: 150px;
+            background-color: #e5e5e5;
+        }
+
+        .container {
+            width: 1000px;
+            padding: 30px 0;
+            margin: 0 auto;
+        }
+

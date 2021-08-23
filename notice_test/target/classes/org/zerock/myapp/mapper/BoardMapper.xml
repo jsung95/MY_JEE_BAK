@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.myapp.mapper.BoardMapper">
+
+    <select id="getList" resultType="org.zerock.myapp.domain.BoardVO">
+        <![CDATA[ 
+        
+        SELECT /*+ index_desc(test_board) */ * FROM test_board WHERE notice_tf = 'F'
+        
+        ]]>
+    </select>
+	
+	<select id="readOne" resultType="org.zerock.myapp.domain.BoardVO">
+		<![CDATA[
+			SELECT * FROM test_board WHERE bno = #{bno}
+		]]>
+	</select>
+	
+	
+	
+	<select id="selectWithPaging" resultType="org.zerock.myapp.domain.BoardVO">
+		<![CDATA[
+          SELECT *
+          FROM test_board
+        ]]>
+        <where>
+        	bno > 0
+        	<choose>
+        		<when test="type eq 'T'.toString()">
+        			<![CDATA[
+        				AND title LIKE '%'||#{keyword}||'%'
+        			]]>
+        		</when>
+      	 		<when test="type eq 'C'.toString()">
+        			<![CDATA[
+        				AND content LIKE '%'||#{keyword}||'%'
+        			]]>
+        		</when>
+        		<when test="type eq 'W'.toString()">
+        			<![CDATA[
+        				AND memberid LIKE '%'||#{keyword}||'%'
+        			]]>
+        		</when>
+        	</choose>
+        </where>
+          
+        <![CDATA[
+          ORDER BY reproot desc, repstep asc
+          OFFSET ( #{currPage} - 1 ) * #{amount} ROWS
+          FETCH NEXT #{amount} ROWS ONLY
+		]]>
+	</select>
+	
+	
+	<select id="selectTotalAmount" resultType="int">
+		<![CDATA[
+          SELECT count(bno)
+          FROM test_board
+        ]]>
+        <where>
+        	bno > 0
+        	<choose>
+        		<when test="type eq 'T'.toString()">
+        			<![CDATA[
+        				AND title LIKE '%'||#{keyword}||'%'
+        			]]>
+        		</when>
+      	 		<when test="type eq 'C'.toString()">
+        			<![CDATA[
+        				AND content LIKE '%'||#{keyword}||'%'
+        			]]>
+        		</when>
+        		<when test="type eq 'W'.toString()">
+        			<![CDATA[
+        				AND memberid LIKE '%'||#{keyword}||'%'
+        			]]>
+        		</when>
+        	</choose>
+        </where>
+	</select>
+	
+	
+	<select id="selectTotalNonNoticeAmount" resultType="int">
+		<![CDATA[
+			SELECT count(bno)
+			FROM test_board
+			WHERE notice_tf = 'F'
+		]]>
+	</select>
+	
+	<select id="getNotice" resultType="org.zerock.myapp.domain.BoardVO">
+		<![CDATA[
+			SELECT /*+INDEX_DESC(test_board) */ * FROM test_board WHERE notice_tf = 'T'
+		]]>
+	</select>
+	
+	
+	<insert id="insert" >
+		<selectKey keyProperty="bno" order="BEFORE" resultType="int">
+			<![CDATA[
+				SELECT test_seq.nextval FROM dual
+			]]>
+		</selectKey>
+
+		<![CDATA[
+			INSERT INTO test_board(bno, reproot, title, content, memberid, bname, notice_tf)
+			VALUES(#{bno}, #{bno}, #{title}, #{content}, #{memberid}, #{bname}, #{notice_tf})
+		]]>
+	</insert>
+	
+	<update id="update">
+		<![CDATA[
+			UPDATE test_board 
+			SET title = #{title}, content = #{content}, memberid = #{memberid}, update_ts = sysdate, notice_tf = #{notice_tf}
+			WHERE bno = #{bno}
+		]]>
+	</update>
+
+	<delete id="delete">
+		<![CDATA[
+			DELETE FROM test_board
+			WHERE bno = #{bno}
+		]]>
+	</delete>
+	
+	<update id="updateReadCnt">
+		<![CDATA[
+			UPDATE test_board
+			SET readcnt = readcnt + 1
+			WHERE bno = #{bno}
+		]]>
+	</update>
+
+
+
+	<!-- insertReply -->
+	<insert id="insertReply">
+		<selectKey keyProperty="reno" order="BEFORE" resultType="int">
+		<![CDATA[
+			SELECT REPLY_SEQ.NEXTVAL FROM dual
+		]]>
+		</selectKey>
+		<![CDATA[
+			INSERT INTO TEST_REPLY(RENO, BNO, RECONTENT, MEMBERID, REDATE)
+			VALUES(#{reno}, #{bno}, #{recontent}, #{memberid}, sysdate)
+		]]>
+	</insert>
+	
+	
+	<!-- selectReply -->
+	<select id="selectReply" resultType="org.zerock.myapp.domain.ReplyVO">
+		<![CDATA[
+			SELECT *
+			FROM TEST_REPLY
+			WHERE bno = #{bno}
+		]]>
+	</select>
+	
+	
+	<!-- deleteReply -->
+	<delete id="deleteReply">
+		<![CDATA[
+			DELETE FROM test_reply
+			WHERE reno = #{reno}
+		]]>
+	</delete>
+	
+	
+	
+	<!-- 답변글 기존 repstep + 1 -->
+	<update id="updateRepStep">
+		<![CDATA[
+			UPDATE test_board
+			SET repstep = repstep + 1
+			WHERE reproot = #{reproot}
+			AND repstep > #{repstep}
+		]]>
+	</update>
+	
+	<!-- 답변달기 -->
+	<insert id="insertAnswer">
+		<!-- <selectKey keyProperty="bno" order="BEFORE" resultType="int">
+			<![CDATA[
+				SELECT test_seq.nextval FROM dual
+			]]>
+		</selectKey> -->
+		<![CDATA[
+			INSERT INTO test_board(bno, reproot, repstep, repindent, title, content, memberid, bname, notice_tf )
+			VALUES(test_seq.nextval, #{reproot}, #{repstep} + 1, #{repindent} +1, #{title}, #{content}, #{memberid}, #{bname}, #{notice_tf})
+		]]>
+	</insert>
+	
+	
+	
+	<!-- FILE UPLOAD -->
+	<insert id="insertFile">
+		<![CDATA[
+			INSERT INTO test_uploadfile(fid, frename, fpath, forname)
+			VALUES(file_seq.nextval, #{frename}, #{fpath}, #{forname})
+		]]>
+	</insert>
+	
+	<update id="updateFileId">
+		<![CDATA[
+			UPDATE test_board 
+			SET fid = file_seq.currval
+			WHERE bno = #{bno}
+		]]>
+	</update>
+	
+	
+	<select id="selectFileById" resultType="org.zerock.myapp.domain.AttachFileVO">
+		<![CDATA[
+			SELECT *
+			FROM test_uploadfile
+			WHERE fid = #{fid}
+		]]>
+	</select>
+	
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.myapp.mapper.RegisterMapper">
+
+	<select id="selectCheckCBNO" resultType="int">
+		<![CDATA[
+			SELECT count(cbno)
+			FROM test_member
+			WHERE cbno = #{cbno}
+		]]>
+	</select>
+	
+	
+	
+	<insert id="insertMember">
+		<selectKey keyProperty="fid" order="BEFORE" resultType="int">
+		<![CDATA[
+			SELECT file_seq.nextval FROM dual
+		]]>
+		</selectKey>
+		<![CDATA[
+			INSERT INTO test_member(mno, memberid, memberpw, membername, phone, email, memberaddress, cbno, fid, membertype)
+			VALUES(member_seq.nextval, #{memberid}, #{memberpw}, #{membername}, #{phone}, #{email}, #{memberaddress}, #{cbno}, file_seq.currval, #{membertype})
+		]]>
+	</insert>
+	
+	
+	<!-- FILE UPLOAD -->
+	<insert id="insertFile">
+		<![CDATA[
+			INSERT INTO test_uploadfile(fid, frename, fpath, forname)
+			VALUES(file_seq.nextval, #{frename}, #{fpath}, #{forname})
+		]]>
+	</insert>
+
+
+</mapper>

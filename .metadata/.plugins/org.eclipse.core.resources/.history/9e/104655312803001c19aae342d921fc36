@@ -1,0 +1,9 @@
+package org.zerock.myapp.mapper;
+
+import org.zerock.myapp.domain.MemberDTO;
+
+public interface RegisterMapper {
+
+	public abstract int selectCheckCBNO(MemberDTO dto);
+	public abstract void insertMember(MemberDTO dto);
+}

@@ -1,0 +1,62 @@
+package org.zerock.myapp.aop;
+
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.springframework.stereotype.Component;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+
+@Log4j2
+@NoArgsConstructor
+
+@Aspect
+@Component
+public class LogAdvice {
+	//Advice 종류 : 5가지 (기준: Target 객체의 JoinPoint가 수행될 때, 어느싯점에 Advice를 적용시킬까에 따라 나눠짐)
+
+	//Before Advice 선언
+//	@Before("execution( 접근제한자 패키지명.클래스명.메소드명(매개변수목록) )")
+	@Before("execution( * org.zerock.myapp.service.*Service.*(..) )")
+	public void logBefore() {
+		log.debug("============================================");
+		log.debug("****>>> [Before Advice] logBefore() invoked.");
+		log.debug("============================================");
+		
+		
+	}//logBefore
+	
+	
+	
+	@Before("execution( * org.zerock.myapp.service.*Service.*(..) ) && args(s1, s2)")
+	public void logBeforeWithArgs(String s1, String s2) {
+		log.debug("============================================");
+		log.debug("****>>> [Before Advice] logBeforeWithArgs({}, {}) invoked.", s1, s2);
+		log.debug("============================================");
+		
+		
+	}//logBeforeWithArgs	
+	
+	
+	@AfterThrowing(pointcut="execution( * org.zerock.myapp.service.*Service.*(..) )", throwing="e")
+	public void logExceptionAfterThrowing(Exception e) {
+		log.debug("============================================");
+		log.debug("****>>> [AfterThrowing Advice] logExceptionAfterThrowing({}) invoked.", e);
+		log.debug("============================================");
+		
+		log.info("\t+ joinPoint's exception : {}", e.getMessage());
+	}
+	
+	
+	@AfterReturning(pointcut="execution( * org.zerock.myapp.service.*Service.*(..) )", returning="result")
+	public void logAfterReturning(Object result) {
+		log.debug("============================================");
+		log.debug("****>>> [AfterReturning Advice] logAfterReturning() invoked.");
+		log.debug("============================================");
+	}
+	
+	
+}

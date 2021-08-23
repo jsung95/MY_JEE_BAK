@@ -1,0 +1,29 @@
+package org.zerock.myapp.aop;
+
+import org.aspectj.lang.annotation.Before;
+import org.springframework.stereotype.Component;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+
+@Log4j2
+@NoArgsConstructor
+
+@Component
+public class LogAdvice {
+	//Advice 종류 : 5가지 (기준: Target 객체의 JoinPoint가 수행될 때, 어느싯점에 Advice를 적용시킬까에 따라 나눠짐)
+
+	//Before Advice 선언
+	@Before("execution( * org.zerock.myapp.service.*Service.*(..) )")
+	public void logBefore() {
+		log.debug("============================================");
+		log.debug("****>>> [Before Advice] logBefore() invoked.");
+		log.debug("============================================");
+		
+		
+	}//logBefore
+	
+	
+	
+}

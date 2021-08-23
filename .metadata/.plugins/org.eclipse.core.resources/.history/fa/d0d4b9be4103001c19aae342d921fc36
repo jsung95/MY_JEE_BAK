@@ -1,0 +1,43 @@
+package org.zerock.myapp.controller;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.myapp.domain.MemberDTO;
+import org.zerock.myapp.mapper.RegisterMapper;
+import org.zerock.myapp.service.RegisterService;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
+@NoArgsConstructor
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
+
+public class HashTests {
+
+	@Autowired
+	private RegisterMapper mapper;
+	
+	@Autowired
+	private RegisterService service;
+	
+	@Test
+	public void test(MemberDTO dto) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		
+		String pw = service.digest(dto);
+		
+		
+		List<MemberDTO> list = this.mapper.select(pw);
+		
+		list.forEach(log::info);
+	}
+}

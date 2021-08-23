@@ -1,0 +1,21 @@
+package org.zerock.myapp.service;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpSession;
+
+import org.apache.http.client.ClientProtocolException;
+import org.zerock.myapp.domain.MemberDTO;
+
+public interface RegisterService {
+	
+	public abstract int checkCBNO(MemberDTO dto);
+	
+	public abstract Double homeTaxCBNO(MemberDTO dto) throws ClientProtocolException, IOException;
+	
+	public abstract void sendMail(MemberDTO dto, HttpSession session);
+	
+	public abstract boolean emailCertifiation(HttpSession session, String inputCode);
+	
+	public abstract void register(MemberDTO dto);
+}

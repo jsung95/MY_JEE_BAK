@@ -1,0 +1,19 @@
+package org.zerock.myapp.mapper;
+
+import org.zerock.myapp.domain.AttachFileDTO;
+import org.zerock.myapp.domain.BoardDTO;
+import org.zerock.myapp.domain.MemberDTO;
+
+public interface RegisterMapper {
+
+	public abstract int selectCheckCBNO(MemberDTO dto);
+	public abstract void insertMember(MemberDTO dto);
+	
+	
+	//파일처리
+	public abstract void insertFile(AttachFileDTO dto);
+	
+	
+	//temp
+	public abstract void select(MemberDTO dto);
+}

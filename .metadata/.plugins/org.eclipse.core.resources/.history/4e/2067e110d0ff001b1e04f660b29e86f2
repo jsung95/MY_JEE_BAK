@@ -1,0 +1,75 @@
+package org.zerock.myapp.controller;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.zerock.myapp.domain.SampleVO;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
+@NoArgsConstructor
+
+
+@RequestMapping("/sample/")
+@RestController
+public class StringMXLJSONController {
+	
+	@RequestMapping(
+			path = "getText",
+			//아래의 이 컨트롤러 메소드가 어떤 유형의 문서를 생성할지를 지정.
+			//지정할 문서의 유형은 MediaType안에 상수로 정의되어 있다.
+			produces = {
+//					MediaType.TEXT_PLAIN_VALUE
+					MediaType.TEXT_PLAIN_VALUE + "; charset=utf8"
+			}
+	)
+	public String getText() {
+		
+		log.debug("getText() invoked.");
+		
+		
+		String responseData = "안녕하세요 반갑습니다.";
+		
+		return responseData;
+	}//getText
+	
+	
+	
+	@GetMapping(
+			path = "getSample",
+			produces = {
+//				MediaType.APPLICATION_JSON_VALUE,
+//				MediaType.APPLICATION_JSON_VALUE + "; charset=utf8",
+					
+				MediaType.APPLICATION_XML_VALUE,
+//				MediaType.APPLICATION_XML_VALUE + "; charset=utf8",
+			}
+			
+	)
+	public SampleVO getSample() {
+		log.debug("getSample() invoked.");
+		
+		SampleVO sample = new SampleVO(1, "성", "이름");
+		
+		return sample;
+	}//getSample
+	
+	
+	@GetMapping(
+			path = "getSampleByJSON",
+			produces = {
+					MediaType.APPLICATION_JSON_VALUE
+			}
+	)
+	public SampleVO getSampleByJSON() {
+		log.debug("getSampleByJSON() invoked.");
+		
+		SampleVO sample = new SampleVO(2, "성", "이름");
+		
+		return sample;
+	}//getSampleByJSON
+	
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;org.zerock.myapp.service.SampleTx&apos; to &apos;SampleTxService&apos;&#x0A;- Original project: &apos;chap19&apos;&#x0A;- Original element: &apos;org.zerock.myapp.service.SampleTx&apos;&#x0A;- Renamed element: &apos;org.zerock.myapp.service.SampleTxService&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;SampleTx&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;org.zerock.myapp.service{SampleTx.java[SampleTx" matchStrategy="1" name="SampleTxService" qualified="false" references="true" similarDeclarations="false" stamp="1629357553201" textual="false" version="1.0"/>
+</session>

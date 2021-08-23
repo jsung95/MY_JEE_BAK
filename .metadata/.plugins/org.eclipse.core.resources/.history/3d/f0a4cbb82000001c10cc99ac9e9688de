@@ -1,0 +1,119 @@
+package org.zerock.myapp.service;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.ParseException;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
+import org.zerock.myapp.domain.MemberDTO;
+import org.zerock.myapp.mapper.RegisterMapper;
+
+import com.google.gson.Gson;
+
+import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
+
+@Service
+public class RegisterServiceImpl implements RegisterService {
+
+	
+	@Setter(onMethod_ = @Autowired)
+	private RegisterMapper mapper;
+
+	@Override
+	public int checkCBNO(MemberDTO dto) {
+		
+		int check = this.mapper.selectCheckCBNO(dto);
+		
+		return check;
+	}
+
+	@Override
+	public Double homeTaxCBNO(MemberDTO dto) throws ClientProtocolException, IOException {
+		
+		CloseableHttpClient client = HttpClients.createDefault();
+		HttpPost httpPost = new HttpPost("https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=SaEtDV6V2ezASF4OroNIlotaYMp84VVz%2BYxZ%2BFvB9MlN%2F7DSCPLNnNRRTZrFKSffpip1B4BvtocfTS08%2F6Hm1Q%3D%3D");
+		
+		
+		try(client) {
+			String input = Long.toString(dto.getCbno());
+			String json = "{ \"b_no\":[\""+ input +"\"]}";
+			StringEntity entity = new StringEntity(json);
+			
+			httpPost.setEntity(entity);
+			httpPost.setHeader("Content-type", "application/json");
+			
+			CloseableHttpResponse response = client.execute(httpPost);
+			
+			try(response) {
+				log.info("STATUS : " + response.getStatusLine().getStatusCode());
+				
+				HttpEntity print = response.getEntity();
+				
+				String result = EntityUtils.toString(print);
+				log.info(result);
+				
+				Gson gson = new Gson();
+				Map map = new HashMap();
+				
+				map = (Map) gson.fromJson(result, map.getClass());
+				log.info("@@@ : " + map.get("match_cnt"));
+				
+				return (Double) map.get("match_cnt");
+				
+			}//try-with-resources
+			
+			
+		}//try-with-resources
+		
+		
+	}
+	
+	@Setter(onMethod_ = @Autowired)
+	JavaMailSender mailSender;
+
+	@Override
+	public void sendMail(MemberDTO dto) {
+		try {
+			MimeMessage msg = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(msg, true, "utf-8");
+			
+			helper.setFrom("25800s10@gmail.com");
+			helper.setTo("jsung9912@gmail.com");
+			helper.setSubject("테스트 제목asd");
+			helper.setText("테스트 제목asd");
+			
+//			msg.addRecipient(RecipientType.TO, new InternetAddress("jsung9912@gmail.com"));
+//			
+//			msg.setFrom(new InternetAddress("25800s10@gmail.com"));
+//			msg.setSubject("테스트 제목asd", "utf-8");
+//			msg.setText("본문입니다. asd", "utf-8");
+			
+			mailSender.send(msg);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	
+}

@@ -1,0 +1,7 @@
+package org.zerock.myapp.mapper;
+
+public interface RegisterMapper {
+
+	public abstract int selectCheckCBNO(Integer cbno);
+	
+}

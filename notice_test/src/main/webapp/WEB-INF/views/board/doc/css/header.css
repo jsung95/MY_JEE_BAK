@@ -1,0 +1,153 @@
+/* HEADER */
+#header {
+    /* width: 1000px; */
+    /* margin: 0 auto; */
+    /* position: fixed; */
+}
+
+#top_menu_area {
+    
+    height: 50px;
+    background-color: #414141;
+}
+
+#top_menu {
+    width: 1000px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+#top_menu ul {
+    position: relative;
+    top: 10px;
+    /* right: 15px; */
+
+    float: right;
+}
+
+
+#top_menu ul li {
+    display: inline;
+    float: left ;
+    font-size: 12px;
+    padding: 0 10px;
+}
+
+#top_menu ul li a {
+    display: block;
+    height: 25px;
+
+    text-decoration: none;
+}
+
+#top_menu ul li a:link {
+    color: white;
+} 
+
+#top_menu ul li a:visited {
+    color: white;
+}
+
+.top_menu_text {
+    position: relative;
+    bottom: 5px;
+}
+
+
+
+#title_logo {
+    float: left;
+    width: 180px;
+    height: 80px;
+
+    text-indent: -99999px;
+
+    background: url(/doc/img/header/header_logo.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#title_logo a {
+    
+    display: block;
+    width: 180px;
+    height: 80px;
+}
+
+
+#gnb_area {
+    height: 80px;
+}
+
+#gnb_menu {
+    width: 1000px;
+    margin: 0 auto;
+    line-height: 80px;
+
+}
+
+#gnb_menu ul {
+    float: left;
+}
+
+#gnb_menu ul li {
+    display: inline;
+    float: left;
+    
+
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#gnb_menu ul li h3 {
+    width: 160px;
+}
+
+
+
+.gnb_bar{
+    /* clear: both; */
+    width:160px; 
+    display: none;
+    position: absolute;
+
+    border-top: solid 5px rgb(200, 200, 200);
+    border-bottom: solid 1px rgb(200, 200, 200);
+
+    background-color: white;
+    opacity: 0.9;
+
+    z-index: 9999;
+}
+
+.gnb_bar li {
+    clear: both;
+    width: 160px;
+    
+    
+    /* margin-bottom: 20px; */
+
+
+    line-height: 30px;
+    
+}
+
+#gnb_menu li:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+#gnb_menu li:hover .gnb_bar{
+    border-top: solid 5px#444444;
+}
+
+#gnb_menu li:hover ul {
+    background-color: rgb(255, 243, 225);
+}
+
+.gnb_bar li a {
+    display: block;
+}
+
+.gnb_bar li a:hover {
+    background-color: rgb(255, 221, 171);
+}

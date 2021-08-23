@@ -1,0 +1,40 @@
+/* FOOTER */
+#footer {
+    background-color: rgb(245, 245, 245);
+}
+
+#footer_area {
+    width: 1000px;
+    height: 230px;
+    margin: 0 auto;
+}
+
+#footer_logo_area { 
+    margin-bottom: 30px;
+}
+
+#footer_logo {
+    width: 180px;
+    height: 80px;
+
+    text-indent: -99999px;
+
+    background: url(/doc/img/footer/footer_logo.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#footer_logo a {
+    display: block;
+    width: 180px;
+    height: 80px;
+}
+
+
+#footer_copy_area {
+    margin-left: 20px;
+}
+
+#footer_copy {
+    font-size: 15px;
+}

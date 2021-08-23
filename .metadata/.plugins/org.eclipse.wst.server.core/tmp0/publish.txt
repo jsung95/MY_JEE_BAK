@@ -1,0 +1,5 @@
+#Tomcat publish data
+#Sun Aug 22 20:56:15 KST 2021
+org.eclipse.jst.jee.server\:notice_test=/usr/local/apache-tomcat-9.0.48/wtpwebapps/notice_test
+org.eclipse.jst.jee.server\:chap16=/usr/local/apache-tomcat-9.0.48/wtpwebapps/chap16
+org.eclipse.jst.jee.server\:/binary\:/Users/jinsung/.m2/repository/org/springframework/spring-web/5.3.9/spring-web-5.3.9.jar=/usr/local/apache-tomcat-9.0.48/wtpwebapps/notice_test/WEB-INF/lib/spring-web-5.3.9.jar

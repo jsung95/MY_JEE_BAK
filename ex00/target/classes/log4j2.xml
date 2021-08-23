@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Configuration status="WARN">
+
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <!-- <PatternLayout pattern="%d{yyyy/MM/dd - HH:mm:ss.SSS} [%t] %5level %logger{36} - %msg%n"/> -->
+            <!-- <PatternLayout pattern="%d{yyyy/MM/dd - HH:mm:ss.SSS} [%t] %5level %C{1} - %msg%n"/> -->
+            <!-- <PatternLayout pattern="%d{yyyy/MM/dd - HH:mm:ss.SSS} [%t] %5level %C{1}.%M - %msg%n"/> -->
+            <!-- <PatternLayout pattern="%d{yyyy/MM/dd - HH:mm:ss.SSS} [%t] %5p %C{1.}.%M:%L - %msg%n"/> -->
+            <!-- <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %5p (%C{1.}.%M:%L) - %msg%n"/> -->
+            <PatternLayout pattern="◎ %d{HH:mm:ss.SSS} %5p (%t) [%C{1.}] - %m%n"/>
+        </Console>
+    </Appenders>
+
+
+    <Loggers>
+		<Logger name="org.bitcamp.myweb.servlet" level="trace"/>
+		<Logger name="org.bitcamp.myweb.listener" level="trace"/>
+		<Logger name="org.bitcamp.myweb.filter" level="trace"/>
+    	<Logger name="org.zerock.myapp" level="error"/>
+
+        <Root level="WARN">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Root>
+
+    </Loggers>
+
+</Configuration>

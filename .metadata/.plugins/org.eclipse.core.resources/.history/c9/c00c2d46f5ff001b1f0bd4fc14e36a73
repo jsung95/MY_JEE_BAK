@@ -1,0 +1,9 @@
+package org.zerock.myapp.service;
+
+import org.zerock.myapp.domain.MemberDTO;
+
+public interface RegisterService {
+	
+	public abstract int checkCBNO(MemberDTO dto);
+	
+}

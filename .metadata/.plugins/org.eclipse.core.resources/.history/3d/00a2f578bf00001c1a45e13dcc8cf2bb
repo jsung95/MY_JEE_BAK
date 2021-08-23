@@ -1,0 +1,45 @@
+package org.zerock.myapp.service;
+
+import java.util.Objects;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.zerock.myapp.mapper.Sample1Mapper;
+import org.zerock.myapp.mapper.Sample2Mapper;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
+@NoArgsConstructor
+public class SampleTxServiceImpl implements SampleTxService {
+
+	
+	@Autowired private Sample1Mapper mapper1;
+	@Autowired private Sample2Mapper mapper2;
+	
+	
+	
+	
+//	@Transactional //아래의 메소드 수행을 트랜잭션 처리하겠다!!
+	@Override
+	public void addData(String value) throws Exception {
+		
+		log.debug("addData({}) invoked.", value);
+		
+		Objects.requireNonNull(this.mapper1);
+		Objects.requireNonNull(this.mapper2);
+		
+		
+		//2개의 테이블을, 2개의 Connection으로 Insert (DML) 수행
+		// 2개의 테이블에 대한 DML 작업이 원자성을 가져야 한다!!! (트랜젝션처리되어야 한다!!!) 
+		//ALL of Nothing 처리 (원자성)가 되어야 한다!!!
+		this.mapper1.insertCol(value);
+		this.mapper2.insertCol(value);
+		
+		log.info("Success");
+		
+		
+	}//addData
+
+}//end class
